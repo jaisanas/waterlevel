@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple AJAX POST Example</title>
+    <script>
+      // Function to make an AJAX POST request
+      function postData() {
+        const data = {
+          day: 1,
+          month: 8,
+        };
+
+        fetch("https://b0d8-180-252-170-247.ngrok-free.app/predict", {
+          // Example API endpoint
+          method: "POST", // Specify the request method as POST
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data), // Convert JavaScript object to JSON string
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // Display the response data in the result div
+            document.getElementById("result").innerHTML = `
+                    <h3>Response</h3>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+          })
+          .catch((error) => {
+            console.error("Error posting data:", error);
+            document.getElementById("result").innerText =
+              "An error occurred while posting data.";
+          });
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Simple AJAX POST Example</h1>
+    <button onclick="postData()">Send POST Request</button>
+    <div id="result"></div>
+  </body>
+</html>
